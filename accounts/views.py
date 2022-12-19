@@ -3,7 +3,6 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from contacts.models import Contact
 
-# Create your views here.
 
 def register(request):
     if request.method == 'POST':
@@ -42,6 +41,7 @@ def register(request):
     else:
         return render(request, 'accounts/register.html')
 
+    
 def login(request):
     if request.method == 'POST':
         # register user
@@ -60,12 +60,14 @@ def login(request):
     else:
         return render(request, 'accounts/login.html')
 
+    
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
         messages.success(request, 'You are now logged out')
         return redirect('index')
 
+    
 def dashboard(request):
     user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
 
